@@ -1,0 +1,1271 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>R. Escents - Perfumería</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+
+    <style>
+        :root {
+            --primary: white;
+            --secondary: #000000;
+            --light: #f8fafa;
+            --dark: #212529;
+            --success: #28a745;
+            --danger: #dc3545;
+            --info: #17a2b8;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #000 !important;
+            color: var(--dark);
+            overflow-x: hidden;
+        }
+
+        /* Video Intro Overlay */
+        .intro-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 10000;
+            background-color: #000;
+            display: flex;
+            justify-content: center;
+            align-items: flex-end;
+            padding-bottom: 50px;
+        }
+
+        .intro-overlay video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: -1;
+        }
+
+        .skip-btn {
+            background-color: rgba(255, 255, 255, 0.85);
+            color: #000;
+            border: none;
+            padding: 12px 40px;
+            font-size: 1.1rem;
+            border-radius: 30px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background-color 0.3s, transform 0.3s;
+            z-index: 1;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .skip-btn:hover {
+            background-color: #fff;
+            transform: scale(1.05);
+        }
+
+        /* Layout Principal */
+        header {
+            background: linear-gradient(135deg, white, white);
+            color: #212529;
+            padding: 1rem 0;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            color: black;
+        }
+
+        .logo i {
+            color: black;
+            margin-right: 10px;
+        }
+
+        .search-container {
+            position: relative;
+            flex: 1;
+            max-width: 400px;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 0.6rem 2.5rem 0.6rem 1rem;
+            border: 2px solid #e0e0e0;
+            border-radius: 25px;
+            font-size: 0.95rem;
+            transition: all 0.3s;
+            outline: none;
+        }
+
+        .search-input:focus {
+            border-color: #c9a227;
+            box-shadow: 0 0 0 3px rgba(201, 162, 39, 0.1);
+        }
+
+        .search-icon {
+            position: absolute;
+            right: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #6c757d;
+            pointer-events: none;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+
+        nav ul li {
+            margin-left: 1.5rem;
+        }
+
+        nav ul li a {
+            color: black;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+            position: relative;
+        }
+
+        nav ul li a:hover {
+            color: #c9a227;
+        }
+
+        .menu-toggle {
+            display: none;
+            font-size: 1.5rem;
+            color: black;
+            cursor: pointer;
+        }
+
+        .promo-banner {
+            background-color: #000;
+            color: white;
+            padding: 0.8rem 0;
+            overflow: hidden;
+            position: relative;
+            border-bottom: 2px solid #c9a227;
+        }
+
+        .promo-scroll {
+            display: flex;
+            white-space: nowrap;
+            animation: scroll-left 30s linear infinite;
+        }
+
+        .promo-text {
+            display: inline-block;
+            padding: 0 3rem;
+            font-size: 0.95rem;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+        }
+
+        @keyframes scroll-left {
+            0% {
+                transform: translateX(0);
+            }
+
+            100% {
+                transform: translateX(-50%);
+            }
+        }
+
+        .promo-scroll:hover {
+            animation-play-state: paused;
+        }
+
+        .hero {
+            background: url('https://images.unsplash.com/photo-1615228939099-43d2fcd5e324?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80') no-repeat center center/cover;
+            height: 70vh;
+            display: flex;
+            align-items: center;
+            position: relative;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            color: white;
+            max-width: 600px;
+        }
+
+        .hero-content h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        .hero-content p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            line-height: 1.6;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 0.8rem 1.8rem;
+            background: var(--dark);
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: all 0.3s;
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn:hover {
+            background: #c9a227;
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .section-title {
+            text-align: center;
+            margin: 3rem 0;
+            position: relative;
+        }
+
+        .section-title h2 {
+            font-size: 2.5rem;
+            color: var(--primary);
+            display: inline-block;
+            padding-bottom: 1rem;
+        }
+
+        .products {
+            padding: 4rem 0;
+        }
+
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.5rem;
+        }
+
+        /* Background video for products area */
+        .products-bg {
+            position: relative;
+            overflow: visible;
+        }
+
+        .products-bg video {
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: 0;
+            pointer-events: none;
+            opacity: 0.95;
+        }
+
+        .products-bg .products {
+            position: relative;
+            z-index: 1;
+        }
+
+        .product-card {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+        }
+
+        .product-img {
+            height: 300px;
+            overflow: hidden;
+        }
+
+        .product-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+
+        .product-card:hover .product-img img {
+            transform: scale(1.1);
+        }
+
+        .product-info {
+            padding: 1.5rem;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            color: #212529;
+        }
+
+        .product-info h3 {
+            font-size: 1.4rem;
+            margin-bottom: 0.5rem;
+            flex-grow: 1;
+        }
+
+        .product-info .brand {
+            color: #6c757d;
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .product-info .price {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: #000000;
+            margin-top: 1rem;
+        }
+
+        .sold-out {
+            color: white;
+            background-color: #dc3545;
+            padding: 0.8rem;
+            text-align: center;
+            border-radius: 5px;
+            font-weight: 600;
+            margin-top: 10px;
+        }
+
+        footer {
+            background: var(--dark);
+            color: white;
+            padding: 3rem 0 1.5rem;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-column h3 {
+            font-size: 1.3rem;
+            margin-bottom: 1.5rem;
+            color: white;
+        }
+
+        .footer-column p,
+        .footer-column ul li a {
+            color: #adb5bd;
+        }
+
+        .footer-column ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .footer-column ul li {
+            margin-bottom: 0.5rem;
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 1.5rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .whatsapp-btn,
+        .instagram-btn {
+            position: fixed;
+            right: 20px;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            z-index: 999;
+            text-decoration: none;
+            color: white;
+            transition: transform 0.3s;
+        }
+
+        .whatsapp-btn:hover,
+        .instagram-btn:hover {
+            transform: scale(1.1);
+        }
+
+        .whatsapp-btn {
+            bottom: 20px;
+            background: #25D366;
+        }
+
+        .instagram-btn {
+            bottom: 90px;
+            background: #E1306C;
+        }
+
+        @media (max-width: 768px) {
+            .header-content {
+                position: relative;
+                flex-wrap: wrap;
+            }
+
+            .menu-toggle {
+                display: block;
+                order: 3;
+            }
+
+            .search-container {
+                order: 2;
+                flex: 1 1 100%;
+                max-width: 100%;
+                margin-top: 1rem;
+            }
+
+            nav {
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background: white;
+                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+                max-height: 0;
+                overflow: hidden;
+                transition: max-height 0.3s ease-in-out;
+            }
+
+            nav.active {
+                max-height: 400px;
+            }
+
+            nav ul {
+                flex-direction: column;
+                padding: 1rem 0;
+            }
+
+            nav ul li {
+                margin: 0;
+                padding: 0.8rem 1.5rem;
+                border-bottom: 1px solid #f0f0f0;
+            }
+
+            nav ul li:last-child {
+                border-bottom: none;
+            }
+
+            nav ul li a {
+                display: block;
+                width: 100%;
+            }
+
+            .product-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 480px) {
+
+            .whatsapp-btn,
+            .instagram-btn {
+                width: 50px;
+                height: 50px;
+                font-size: 1.5rem;
+                right: 15px;
+            }
+
+            .whatsapp-btn {
+                bottom: 15px;
+            }
+
+            .instagram-btn {
+                bottom: 75px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="intro-overlay" id="introOverlay">
+        <video src="acua.mp4" autoplay muted loop playsinline></video>
+        <button class="skip-btn" id="skipBtn">Skip Video</button>
+    </div>
+
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <i class="fas fa-spray-can"></i>
+                    <span>R. Escents</span>
+                </div>
+
+                <div class="search-container">
+                    <input type="text" class="search-input" id="searchInput" placeholder="Buscar perfumes..."
+                        autocomplete="off">
+                    <i class="fas fa-search search-icon"></i>
+                </div>
+
+                <nav id="main-nav">
+                    <ul>
+                        <li><a href="#inicio">Inicio</a></li>
+                        <li><a href="#perfumes-hombre">Hombre</a></li>
+                        <li><a href="#perfumes-mujer">Mujeres</a></li>
+                        <li><a href="#contacto">Contacto</a></li>
+                    </ul>
+                </nav>
+
+                <div class="menu-toggle" id="menu-toggle">
+                    <i class="fas fa-bars"></i>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="promo-banner">
+        <div class="promo-scroll">
+            <span class="promo-text">GARANTIA DE 1 SEMANA</span>
+            <span class="promo-text"> PAGOS ACCESIBLES</span>
+        </div>
+    </div>
+
+    <main>
+        <section class="hero" id="inicio">
+            <div class="container hero-content">
+                <h1>Perfumes al mejor precio del mercado</h1>
+                <p>Tu nuevo perfume te espera</p>
+                <a href="#perfumes-hombre" class="btn">Ver Colección</a>
+            </div>
+        </section>
+
+        <div class="products-bg">
+            <video id="mainBgVideo" src="acua.mp4" autoplay muted loop playsinline aria-hidden="true"></video>
+
+            <section class="products" id="perfumes-hombre">
+                <div class="container">
+                    <div class="section-title">
+                        <h2 style="color: white;">Perfumes Para Hombre</h2>
+                    </div>
+                    <div class="product-grid">
+                        <div class="product-card animate__animated animate__fadeInUp">
+                            <div class="product-img">
+                                <img src="https://acnews.blob.core.windows.net/imgnews/paragraph/NPAZ_7d40d174fdfa40de9825b1cdd94db484.webp"
+                                    alt="Liquid Brun">
+                            </div>
+                            <div class="product-info">
+                                <span class="brand">Xerjoff Fierezza</span>
+                                <h3>Xerjoff</h3>
+                                <div class="price">$5,800 MXN</div>
+                                <div class="sold-out" style="color: black;">SOLD OUT</div>
+                            </div>
+                        </div>
+                        <div class="product-card animate__animated animate__fadeInUp">
+                            <div class="product-img">
+                                <img src="https://acnews.blob.core.windows.net/imgnews/paragraph/NPAZ_c0e3349f035c4f1b80ca088f0d16fe82.webp"
+                                    alt="Hayaati">
+                            </div>
+                            <div class="product-info">
+                                <span class="brand">Xerjoff Avanguardia</span>
+                                <h3>Xerjoff</h3>
+                                <div class="price">$6,000</div>
+                                <div class="sold-out" style="color: black;">SOLD OUT</div>
+                            </div>
+                        </div>
+                        <div class="product-card animate__animated animate__fadeInUp">
+                            <div class="product-img">
+                                <img src="https://acnews.blob.core.windows.net/imgnews/paragraph/NPAZ_6b9e72502bc540f0807caab57ce41a5b.webp"
+                                    alt="Sillage">
+                            </div>
+                            <div class="product-info">
+                                <span class="brand">Xerjoff Perseveranza</span>
+                                <h3>Xerjoff</h3>
+                                <div class="price">$6,000 MXN</div>
+                                <div class="sold-out" style="color: black;">SOLD OUT</div>
+                            </div>
+                        </div>
+                        <div class="product-card animate__animated animate__fadeInUp">
+                            <div class="product-img">
+                                <img src="https://media.cdn.kaufland.de/product-images/1024x1024/1c78f23ad6bdb0b027b058dc00fe0f7b.jpg"
+                                    alt="Khamrah">
+                            </div>
+                            <div class="product-info">
+                                <span class="brand">Lattafa</span>
+                                <h3>Khamrah</h3>
+
+                            </div>
+                        </div>
+                        <div class="product-card animate__animated animate__fadeInUp">
+                            <div class="product-img">
+                                <img src="https://decantworldbd.com/wp-content/uploads/2023/01/Ultra-Male-3.png"
+                                    alt="Jean Paul Le Male Ultra">
+                            </div>
+                            <div class="product-info">
+                                <span class="brand">Jean Paul Gaultier</span>
+                                <h3>Jean Paul Le Male Ultra 125 ml</h3>
+
+                            </div>
+                        </div>
+                        <div class="product-card animate__animated animate__fadeInUp">
+                            <div class="product-img">
+                                <img src="https://i.pinimg.com/originals/e3/ee/80/e3ee8022d6f8b1f6de06fd19146f97aa.jpg"
+                                    alt="Jean Paul Gaultier Le Male Elixir">
+                            </div>
+                            <div class="product-info">
+                                <span class="brand" style="color: red;">Recomendado</span>
+                                <h3>Jean Paul Gaultier Le Male Elixir 100 ml</h3>
+
+                            </div>
+                        </div>
+                        <div class="product-card animate__animated animate__fadeInUp">
+                            <div class="product-img">
+                                <img src="https://www.sephora.com.mx/on/demandware.static/-/Sites-masterCatalog_Sephora/es_MX/dw007277bd/images/hi-res/hombre-carolina-herrera-carolina-herrera-ch-men8411061786161M.jpg"
+                                    alt="Glacier Bold EDP">
+                            </div>
+                            <div class="product-info">
+                                <span class="brand">C.H</span>
+                                <h3>Carolina Herrera 100 ml Hombre</h3>
+                            </div>
+                        </div>
+                        <div class="product-card animate__animated animate__fadeInUp">
+                            <div class="product-img">
+                                <img src="https://perfumescardales.com.ar/wp-content/uploads/2024/06/nitro-red-2.jpg"
+                                    alt="Nitro Red Pour Homme">
+                            </div>
+                            <div class="product-info">
+                                <span class="brand">Dumont</span>
+                                <h3>Nitro Red Pour Homme 100 ml</h3>
+
+                            </div>
+                        </div>
+                        <div class="product-card animate__animated animate__fadeInUp">
+                            <div class="product-img">
+                                <img src="https://fraguru.com/photogram/p1200/sb/vi/8wavVKarOFSV4GGO.jpg" alt="Asad">
+                            </div>
+                            <div class="product-info">
+                                <span class="brand">Lattafa</span>
+                                <h3>Asad 100 ml EDP</h3>
+
+                            </div>
+                        </div>
+                        <div class="product-card animate__animated animate__fadeInUp">
+                            <div class="product-img">
+                                <img src="https://perfumepalace.pk/wp-content/uploads/Belvish-Afnan-9am-Dive-HP.jpg"
+                                    alt="9 AM">
+                            </div>
+                            <div class="product-info">
+                                <span class="brand">Armaf</span>
+                                <h3>9 AM 150 ml EDP</h3>
+
+                            </div>
+                        </div>
+                        <div class="product-card animate__animated animate__fadeInUp">
+                            <div class="product-img">
+                                <img src="https://soghaat.co.uk/wp-content/uploads/2023/03/9pm-Perfume-Eau-De-Parfum-100ml-by-Afnan-Inspired-by-Jean-Paul-Gaultier-Ultra-Male-4.jpg"
+                                    alt="9 PM">
+                            </div>
+                            <div class="product-info">
+                                <span class="brand">Armaf</span>
+                                <h3>9 PM 100 ml EDP</h3>
+
+                            </div>
+                        </div>
+                        <div class="product-card animate__animated animate__fadeInUp">
+                            <div class="product-img">
+                                <img src="https://fimgs.net/photogram/p1200/og/8d/ZIqvkspYh8JrJhAx.jpg"
+                                    alt="9 PM Rebel">
+                            </div>
+                            <div class="product-info">
+                                <span class="brand">Valentino</span>
+                                <h3>V. Hombre Amo Edicion Limitada 150 ml EDP</h3>
+                            </div>
+                        </div>
+                        <div class="product-card animate__animated animate__fadeInUp">
+                            <div class="product-img">
+                                <img src="https://perfumartevip.com/wp-content/uploads/2024/05/Jean-Lowe-Immortal-de-Maison-Alhambra-100ml-scaled.jpeg"
+                                    alt="Jean Lowe Immortel">
+                            </div>
+                            <div class="product-info">
+                                <span class="brand">Maison Alhambra</span>
+                                <h3>Jean Lowe Immortel 100 ml EDP</h3>
+
+                            </div>
+                        </div>
+                        <div class="product-card animate__animated animate__fadeInUp">
+                            <div class="product-img">
+                                <img src="https://i1.perfumesclub.com/grande/50032779-3.jpg" alt="Spicebomb">
+                            </div>
+                            <div class="product-info">
+                                <span class="brand" style="color: red;">Recomendado</span>
+                                <h3>Spicebomb 90 ml EDP</h3>
+                            </div>
+                        </div>
+                        <div class="product-card animate__animated animate__fadeInUp">
+                            <div class="product-img">
+                                <img src="https://perfumescardales.com.ar/wp-content/uploads/2026/01/scandal-intense-homme-1.jpg"
+                                    alt="Mancera Red Tobbaco">
+                            </div>
+                            <div class="product-info">
+                                <span class="brand">Jean Paul Gaultier</span>
+                                <h3>JPG Scandal Intense 100 ml EDP</h3>
+
+                            </div>
+                        </div>
+                        <div class="product-card animate__animated animate__fadeInUp">
+                            <div class="product-img">
+                                <img src="https://ascotcosmetics.co.za/wp-content/uploads/2015/10/Jean-Paul-Gaultier-Le-Male_3.jpg"
+                                    alt="Givenchy Society Extreme">
+                            </div>
+                            <div class="product-info">
+                                <span class="brand">Jean Paul Gaultier</span>
+                                <h3>JPG Le Male EDT 200 mL</h3>
+
+                            </div>
+                        </div>
+                        <div class="product-card animate__animated animate__fadeInUp">
+                            <div class="product-img">
+                                <img src="https://labelleperfumes.com/cdn/shop/files/acqua-di-gio-parfum-ad3.web4_eb79d5bd-fb5f-4625-816e-42c2773a7d54_800x.webp?v=1703271682"
+                                    alt="Valentino Uomo Born in Roma">
+                            </div>
+                            <div class="product-info">
+                                <span class="brand" style="color: red;">Recomendado</span>
+                                <h3>Acqua Di Gio Parfum 100 ml EDP</h3>
+
+                            </div>
+                        </div>
+                        <div class="product-card animate__animated animate__fadeInUp">
+                            <div class="product-img">
+                                <img src="https://belvish.com/cdn/shop/products/Acqua-Di-Gio-EDT-for-Men.jpg?v=1705596063&width=1946"
+                                    alt="Valentino Uomo Born in Roma Green Stravaganza">
+                            </div>
+                            <div class="product-info">
+                                <span class="brand">Acqua Di Gio</span>
+                                <h3>Acqua Di Gio EDT 300 ml</h3>
+
+                            </div>
+                        </div>
+                        <div class="product-card animate__animated animate__fadeInUp">
+                            <div class="product-img">
+                                <img src="https://fimgs.net/photogram/p1200/oh/0h/RKhFNmTIqTdqtBCH.jpg"
+                                    alt="Mancera Cedrat Boise">
+                            </div>
+                            <div class="product-info">
+                                <span class="brand" style="color: red;">Recomendado</span>
+                                <h3>Mancera Red Tobbaco EDP 120 ml</h3>
+
+                            </div>
+                        </div>
+                        <div class="product-card animate__animated animate__fadeInUp">
+                            <div class="product-img">
+                                <img src="https://orientalaromas.com/cdn/shop/files/E612895B-2380-41E5-A347-30E6228FC1DC.jpg?v=1727324545&width=990"
+                                    alt="Lattafa Pissa">
+                            </div>
+                            <div class="product-info">
+                                <span class="brand">Lattafa</span>
+                                <h3>Lattafa His confession 100 ml</h3>
+
+                            </div>
+                        </div>
+                        <div class="product-card animate__animated animate__fadeInUp">
+                            <div class="product-img">
+                                <img src="https://fimgs.net/mdimg/vijesti/o.19110.2.jpg"
+                                    alt="Xerjoff V Erba Gold Nicho">
+                            </div>
+                            <div class="product-info">
+                                <span class="brand" style="color: red;">Recomendado</span>
+                                <h3>Xerjoff V Erba Gold Nicho 100 ml</h3>
+                            </div>
+                        </div>
+                        <div class="product-card animate__animated animate__fadeInUp">
+                            <div class="product-img">
+                                <img src="https://fraguru.com/photogram/p1200/db/wr/xYE4M7fcfeMV9SYF.jpg"
+                                    alt="Xerjoff Erba Pura Nicho">
+                            </div>
+                            <div class="product-info">
+                                <span class="brand" style="color: red;">Recomendado</span>
+                                <h3>Xerjoff Erba Pura Nicho 100 ml</h3>
+
+                            </div>
+                        </div>
+                        <div class="product-card animate__animated animate__fadeInUp">
+                            <div class="product-img">
+                                <img src="https://www.sephora.com/productimages/product/p382751-av-2-zoom.jpg"
+                                    alt="Versace Eros">
+                            </div>
+                            <div class="product-info">
+                                <span class="brand" style="color: red;">Recomendado</span>
+                                <h3>Versace Eros EDT para Hombre 200 ML</h3>
+
+                            </div>
+                        </div>
+                        <div class="product-card animate__animated animate__fadeInUp">
+                            <div class="product-img">
+                                <img src="https://arabia.com.co/cdn/shop/files/image_iA3.png?v=1694805082"
+                                    alt="Versace Eros Flame">
+                            </div>
+                            <div class="product-info">
+                                <span class="brand" style="color: red;">Recomendado</span>
+                                <h3>Versace Eros Flame EDP 100 ML para Hombre</h3>
+
+                            </div>
+                        </div>
+                        <div class="product-card animate__animated animate__fadeInUp">
+                            <div class="product-img">
+                                <img src="https://www.versace.com/dw/image/v2/BGWN_PRD/on/demandware.static/-/Library-Sites-ver-library/default/dw9e578a43/images/world-of-versace/fragrances/DYLAN-BLUE-HUMME-02-01-img-150920-mob.jpg"
+                                    alt="Versace Dylan Blue">
+                            </div>
+                            <div class="product-info">
+                                <span class="brand">Versace</span>
+                                <h3>Versace Dylan Blue EDP Para Hombre 200 ML </h3>
+
+                            </div>
+                        </div>
+                        <div class="product-card animate__animated animate__fadeInUp">
+                            <div class="product-img">
+                                <img src="https://sp-ao.shortpixel.ai/client/to_webp,q_glossy,ret_img,w_1980,h_1080/https://www.perfumestars.com/wp-content/uploads/2024/11/versace-eros-najim-a-radiant-and-enigmatic-new-fragrance-for-men-2024.jpg"
+                                    alt="Versace Pour Homme">
+                            </div>
+                            <div class="product-info">
+                                <span class="brand">Versace</span>
+                                <h3>Versace Eros Najim 50 ML para Hombre</h3>
+
+                            </div>
+                        </div>
+                        <div class="product-card animate__animated animate__fadeInUp">
+                            <div class="product-img">
+                                <img src="https://www.remixmagazine.com/assets/Dolce-and-Gabbana-K-EDP-EDT__ResizedImageWzExNTYsOTM1XQ.PNG"
+                                    alt="Dolce And Gabbana K">
+                            </div>
+                            <div class="product-info">
+                                <span class="brand" style="color: red;">Recomendado</span>
+                                <h3>Dolce And Gabbana EDP 200 mL Para Hombre</h3>
+
+                            </div>
+                        </div>
+                        <div class="product-card animate__animated animate__fadeInUp">
+                            <div class="product-img">
+                                <img src="https://www.duneperfumes.com.au/cdn/shop/files/image_k2o.png?v=1738157845&width=1206"
+                                    alt="Hawas Elixir">
+                            </div>
+                            <div class="product-info">
+                                <span class="brand">Hawas</span>
+                                <h3>Hawas Elixir Para Hombre 100 ML EDP</h3>
+
+                            </div>
+                        </div>
+                        <div class="product-card animate__animated animate__fadeInUp">
+                            <div class="product-img">
+                                <img src="https://perfumescardales.com.ar/wp-content/uploads/2025/12/hawas-kobra-4.jpg"
+                                    alt="Hawas Tropical">
+                            </div>
+                            <div class="product-info">
+                                <span class="brand">Hawas</span>
+                                <h3>Hawas kobra EDP Para Hombre, 100 ML</h3>
+
+                            </div>
+                        </div>
+                        <div class="product-card animate__animated animate__fadeInUp">
+                            <div class="product-img">
+                                <img src="https://www.perfumestars.com/wp-content/uploads/2024/08/versace-eros-energy-the-new-vibrant-chapter-in-the-eros-fragrance-collection.jpg"
+                                    alt="Hawas Black">
+                            </div>
+                            <div class="product-info">
+                                <span class="brand">Versace</span>
+                                <h3>V. Eros Energy EDP 100 ML Para Hombre</h3>
+
+                            </div>
+                        </div>
+                        <div class="product-card animate__animated animate__fadeInUp">
+                            <div class="product-img">
+                                <img src="https://dikl249ktecee.cloudfront.net/fit-in/700x700/filters:fill(FFFFFF):quality(90):format(webp)/_img_productos/perfume-ysl-myslf-labsolu-edp-fb-100ml-.jpg"
+                                    alt="Hawas Fire">
+                            </div>
+                            <div class="product-info">
+                                <span class="brand">Yves Saint Laurent</span>
+                                <h3>YSL Labsolute 60-100 ml</h3>
+
+                            </div>
+                        </div>
+                        <div class="product-card animate__animated animate__fadeInUp">
+                            <div class="product-img">
+                                <img src="https://fimgs.net/himg/o.sIeKylKLNBz.jpg" alt="YSL Myslf">
+                            </div>
+                            <div class="product-info">
+                                <span class="brand" style="color: red;">Recomendado</span>
+                                <h3>YSL Myslf EDP Para Hombre 100 ML</h3>
+
+                            </div>
+                        </div>
+                        <div class="product-card animate__animated animate__fadeInUp">
+                            <div class="product-img">
+                                <img src="https://www.scentstore.com/wp-content/uploads/2023/05/3614273898461_4.jpg"
+                                    alt="YSL Intense">
+                            </div>
+                            <div class="product-info">
+                                <span class="brand" style="color: red;">Recomendado</span>
+                                <h3>YSL EDP Intense Para Hombre 100 ML</h3>
+
+                            </div>
+                        </div>
+                        <div class="product-card animate__animated animate__fadeInUp">
+                            <div class="product-img">
+                                <img src="https://www.sephora.com.mx/on/demandware.static/-/Sites-masterCatalog_Sephora/es_MX/dw9ccc59d8/images/hi-res/hombre-carolina-herrera-carolina-herrera-212-vip-black8411061870518H.jpg"
+                                    alt="Carolina Herrera 212 VIP BLACK">
+                            </div>
+                            <div class="product-info">
+                                <span class="brand">CH</span>
+                                <h3>Carolina Herrera 212 VIP BLACK Para Hombre EDP 100 ML</h3>
+
+                            </div>
+                        </div>
+                        <div class="product-card animate__animated animate__fadeInUp">
+                            <div class="product-img">
+                                <img src="https://fimgs.net/mdimg/secundar/o.78205.jpg"
+                                    alt="Stronger With You Intensly">
+                            </div>
+                            <div class="product-info">
+                                <span class="brand" style="color: red;">Recomendado</span>
+                                <h3>YSL Y Le Parfum (2021) 100 ML Para Hombre</h3>
+
+                            </div>
+                        </div>
+                        <div class="product-card animate__animated animate__fadeInUp">
+                            <div class="product-img">
+                                <img src="https://ifragranceofficial.com/wp-content/uploads/2024/02/invictus-parfum.jpg"
+                                    alt="Stronger With You Parfum">
+                            </div>
+                            <div class="product-info">
+                                <span class="brand" style="color: red;">Recomendado</span>
+                                <h3>Invictus Parfum </h3>
+
+                            </div>
+                        </div>
+                        <div class="product-card animate__animated animate__fadeInUp">
+                            <div class="product-img">
+                                <img src="http://yperfume.net/wp-content/uploads/2022/12/Nuoc-Hoa-Armaf-Club-De-Nuit-Urban-Man-Y-Perfume-2.jpg"
+                                    alt="Club De Nuit Urban Man Elixir">
+                            </div>
+                            <div class="product-info">
+                                <span class="brand">Armaf</span>
+                                <h3>Club De Nuit Urban Man 100 ML Para Hombre EDP</h3>
+
+                            </div>
+                        </div>
+                        <div class="product-card animate__animated animate__fadeInUp">
+                            <div class="product-img">
+                                <img src="https://www.myperfumeshop.com.au/cdn/shop/products/dior-dior-sauvage-edt-950670.jpg?v=1609925213&width=1080"
+                                    alt="Sauvage Dior">
+                            </div>
+                            <div class="product-info">
+                                <span class="brand" style="color: red;">Recomendado</span>
+                                <h3>Sauvage Dior 100 ML EDT</h3>
+
+                            </div>
+                        </div>
+                        <div class="product-card animate__animated animate__fadeInUp">
+                            <div class="product-img">
+                                <img src="https://perfumescardales.com.ar/wp-content/uploads/2020/01/dior-homme-2020-edt-3.jpg"
+                                    alt="Mancera Tonka Kola">
+                            </div>
+                            <div class="product-info">
+                                <span class="brand">Dior</span>
+                                <h3>Dior Homme 100 ML EDT</h3>
+
+                            </div>
+                        </div>
+                        <div class="product-card animate__animated animate__fadeInUp">
+                            <div class="product-img">
+                                <img src="https://privateblends.com.au/cdn/shop/files/487852360_17908119468106213_3972411468773709739_n.jpg?v=1743930906&width=1000"
+                                    alt="Aether">
+                            </div>
+                            <div class="product-info">
+                                <span class="brand">French Avenue</span>
+                                <h3>Vulcan Feu 100 mL Hombre</h3>
+
+                            </div>
+                        </div>
+                        <div class="product-card animate__animated animate__fadeInUp">
+                            <div class="product-img">
+                                <img src="https://perfumescardales.com.ar/wp-content/uploads/2024/07/nitro-green-2.jpg"
+                                    alt="Nitro White">
+                            </div>
+                            <div class="product-info">
+                                <span class="brand">Dumont</span>
+                                <h3>Nitro Green Hombre 100 ML</h3>
+
+                            </div>
+                        </div>
+                        <div class="product-card animate__animated animate__fadeInUp">
+                            <div class="product-img">
+                                <img src="https://perfumescardales.com.ar/wp-content/uploads/2024/07/nitro-blue-2.jpg"
+                                    alt="Nitro Blue">
+                            </div>
+                            <div class="product-info">
+                                <span class="brand">Dumont</span>
+                                <h3>Nitro Blue Hombre 100 ML</h3>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="products" id="perfumes-mujer">
+                <div class="container">
+                    <div class="section-title">
+                        <h2 style="color: white;">Perfumes Para Mujer</h2>
+                    </div>
+                    <div class="product-grid">
+                        <div class="product-card animate__animated animate__fadeInUp">
+                            <div class="product-img">
+                                <img src="https://static.sweetcare.com/img/prd/488/v-638648590934587269/jean-paul-gaultier-022041jg-3.webp"
+                                    alt="Jean Paul Gaultier Scandal Absolu">
+                            </div>
+                            <div class="product-info">
+                                <span class="brand" style="color: pink;">Recomendado</span>
+                                <h3>Jean Paul Gaultier Scandal Absolu 80 Ml Mujer</h3>
+
+                            </div>
+                        </div>
+                        <div class="product-card animate__animated animate__fadeInUp">
+                            <div class="product-img">
+                                <img src="https://www.quick.com.bo/wp-content/uploads/2023/12/Versace-Eros-Pour-Femme1.jpg"
+                                    alt="Versace Eros">
+                            </div>
+                            <div class="product-info">
+                                <span class="brand" style="color: pink;">Recomendado</span>
+                                <h3>Versace Eros 100 Ml Mujer</h3>
+
+                            </div>
+                        </div>
+                        <div class="product-card animate__animated animate__fadeInUp">
+                            <div class="product-img">
+                                <img src="https://fimgs.net/himg/o.100676.jpg" alt="Jean Paul Gaultier La Belle">
+                            </div>
+                            <div class="product-info">
+                                <span class="brand">JPG</span>
+                                <h3>Jean Paul Gaultier La Belle Le Parfum Mujer</h3>
+
+                            </div>
+                        </div>
+                        <div class="product-card animate__animated animate__fadeInUp">
+                            <div class="product-img">
+                                <img src="https://theislamshop.com/storage/81f70862_Yara%20Candy%20100ml%20EDP%20(Eau%20De%20Parfum)%20By%20Lattafa%20Perfumes%204.png"
+                                    alt="Yara Candy">
+                            </div>
+                            <div class="product-info">
+                                <span class="brand" style="color: pink;">Recomendado</span>
+                                <h3>Lattafa Yara Candy EDP 100 Ml Mujer</h3>
+
+                            </div>
+                        </div>
+                        <div class="product-card animate__animated animate__fadeInUp">
+                            <div class="product-img">
+                                <img src="https://cdn.notinoimg.com/detail_main_hq/afnan/6290171072607_03/9-pm-pour-femme___240924.jpg"
+                                    alt="9 PM Pour Femme">
+                            </div>
+                            <div class="product-info">
+                                <span class="brand" style="color: pink;">Afnan</span>
+                                <h3>Afnan 9 Pm Pour Femme EDP Pm 100 Ml Mujer</h3>
+
+                            </div>
+                        </div>
+                        <div class="product-card animate__animated animate__fadeInUp">
+                            <div class="product-img">
+                                <img src="https://mcgrandshop.com/wp-content/uploads/2023/09/31_9am_femme.jpg"
+                                    alt="9 AM Pour Femme">
+                            </div>
+                            <div class="product-info">
+                                <span class="brand">Afnan</span>
+                                <h3>Afnan 9 Am Pour Femme 100 Ml Mujer</h3>
+
+                            </div>
+                        </div>
+                        <div class="product-card animate__animated animate__fadeInUp">
+                            <div class="product-img">
+                                <img src="https://perfume168.com/wp-content/uploads/2025/02/yum3.jpg" alt="Yum Yum">
+                            </div>
+                            <div class="product-info">
+                                <span class="brand">Armaf</span>
+                                <h3>Armaf Yum Yum 100 Ml Mujer</h3>
+
+                            </div>
+                        </div>
+                        <div class="product-card animate__animated animate__fadeInUp">
+                            <div class="product-img">
+                                <img src="https://perfumescardales.com.ar/wp-content/uploads/2024/01/ch-woman-3.jpg"
+                                    alt="Carolina Herrera">
+                            </div>
+                            <div class="product-info">
+                                <span class="brand" style="color: pink;">Recomendado</span>
+                                <h3>Carolina Herrera Mujer</h3>
+
+                            </div>
+                        </div>
+                        <div class="product-card animate__animated animate__fadeInUp">
+                            <div class="product-img">
+                                <img src="https://www.sephora.pl/on/demandware.static/-/Sites-masterCatalog_Sephora/default/dw7cb9abaa/images/hi-res/alternates/PID_alternate2/PID_alternate2_463/P3949102_2.jpg"
+                                    alt="Dior Rose N Roses">
+                            </div>
+                            <div class="product-info">
+                                <span class="brand" style="color: pink;">Recomendado</span>
+                                <h3>Dior Rose N"Roses 100 Ml Edp Mujer</h3>
+
+                            </div>
+                        </div>
+                        <div class="product-card animate__animated animate__fadeInUp">
+                            <div class="product-img">
+                                <img src="https://www.houseoffraser.co.uk/images/imgzoom/75/75475603_xxl_a2.jpg"
+                                    alt="Dolce And Gabbana L Emperatrice">
+                            </div>
+                            <div class="product-info">
+                                <span class="brand" style="color: pink;">Recomendado</span>
+                                <h3>Dolce And Gabbana L"Emperatrice 100 Ml Edp Mujer</h3>
+
+                            </div>
+                        </div>
+                        <div class="product-card animate__animated animate__fadeInUp">
+                            <div class="product-img">
+                                <img src="https://fimgs.net/photogram/p1200/nw/41/mirzwg5c1DmHfW0A.jpg"
+                                    alt="Dior Booming Bouquet">
+                            </div>
+                            <div class="product-info">
+                                <span class="brand" style="color: pink;">Recomendado</span>
+                                <h3>Dior Booming Bouquet 100 Ml Edp Mujer</h3>
+
+                            </div>
+                        </div>
+                        <div class="product-card animate__animated animate__fadeInUp">
+                            <div class="product-img">
+                                <img src="https://elmejorperfume.com/wp-content/uploads/2020/10/Perfume-coach-new-york-marca-coach-para-mujer-de-Perfumes-y-marcas-El-Mejor-Perfume-solo-originales-500x500.jpg"
+                                    alt="Coach New York">
+                            </div>
+                            <div class="product-info">
+                                <span class="brand">Coach</span>
+                                <h3>Coach New York 100 Ml Edp Mujer</h3>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+    </main>
+    <footer id="contacto">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>R. Escents</h3>
+                    <p>Tienda especializada en perfumes originales y nicho</p>
+                </div>
+                <div class="footer-column">
+                    <h3>Enlaces Rápidos</h3>
+                    <ul>
+                        <li><a href="#inicio">Inicio</a></li>
+                        <li><a href="#perfumes-hombre">Perfumes Hombre</a></li>
+                        <li><a href="#perfumes-mujer">Perfumes Mujer</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Información de Contacto</h3>
+                    <p><i class="fas fa-phone"></i> +52 448 101 5555</p>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2025 R. Escents. Todos los derechos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <a href="https://wa.me/524481015555" class="whatsapp-btn" target="_blank">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+
+    <a href="https://www.instagram.com/r.escents?igsh=ODA1NTc5OTg5Nw==" class="instagram-btn" target="_blank">
+        <i class="fab fa-instagram"></i>
+    </a>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+
+            // Lógica para el botón Skip del Video Intro
+            const skipBtn = document.getElementById('skipBtn');
+            const introOverlay = document.getElementById('introOverlay');
+
+            if (skipBtn && introOverlay) {
+                skipBtn.addEventListener('click', () => {
+                    // Oculta el overlay cuando se da click
+                    introOverlay.style.display = 'none';
+                    // Opcional: Pausar el video para que no siga reproduciendo en el fondo
+                    const video = introOverlay.querySelector('video');
+                    if (video) video.pause();
+                });
+            }
+
+            // Menú Toggle para móviles
+            const menuToggle = document.getElementById('menu-toggle');
+            const mainNav = document.getElementById('main-nav');
+            if (menuToggle && mainNav) {
+                menuToggle.addEventListener('click', () => {
+                    mainNav.classList.toggle('active');
+                });
+            }
+
+            // Cerrar menú al hacer clic en un enlace (móviles)
+            document.querySelectorAll('nav a').forEach(link => {
+                link.addEventListener('click', () => {
+                    if (mainNav) mainNav.classList.remove('active');
+                });
+            });
+        });
+    </script>
+
+</body>
+
+</html>
